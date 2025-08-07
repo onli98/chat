@@ -8,16 +8,19 @@
   <style>
     * { box-sizing: border-box; }
     body {
-      margin: 0; font-family: 'Quicksand', sans-serif;
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
       background: linear-gradient(to bottom right, #fff0f5, #fce4ff);
       color: #4a4a4a;
     }
     header {
-      text-align: center; padding: 40px 20px 20px;
+      text-align: center;
+      padding: 40px 20px 20px;
       position: relative;
     }
     .foto-wrapper {
-      position: relative; display: inline-block;
+      position: relative;
+      display: inline-block;
     }
     .foto-wrapper::before {
       content: '';
@@ -36,38 +39,24 @@
       100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
     }
     .foto-wrapper img {
-      width: 120px; height: 120px;
-      border-radius: 50%; border: 4px solid #e91e63;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #e91e63;
       object-fit: cover;
       box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-      position: relative; z-index: 1;
+      position: relative;
+      z-index: 1;
     }
     header h1 {
-      margin: 20px 0 5px; font-size: 26px;
+      margin: 20px 0 5px;
+      font-size: 26px;
       color: #c2185b;
     }
     header p {
-      font-size: 16px; color: #a0529e;
+      font-size: 16px;
+      color: #a0529e;
       margin: 0;
-    }
-    .subtitulo {
-      font-size: 18px;
-      color: #c2185b;
-      margin-top: 10px;
-      font-weight: 600;
-    }
-    .agendamento-animado {
-      font-size: 28px;
-      font-weight: 700;
-      color: #e91e63;
-      margin-top: 15px;
-      animation: bounce 2s infinite;
-      user-select: none;
-      text-shadow: 0 2px 6px rgba(233, 30, 99, 0.5);
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
     }
     .container {
       max-width: 600px;
@@ -182,13 +171,13 @@
       selectDia.innerHTML = "";
       let count = 0;
       let i = 0;
-      while(count < 14) {
+      while (count < 14) {
         const data = new Date();
         data.setDate(hoje.getDate() + i);
         const diaSemana = diasSemana[data.getDay()];
         if (["Terça", "Quarta", "Quinta", "Sexta", "Sábado"].includes(diaSemana)) {
-          const dia = String(data.getDate()).padStart(2,"0");
-          const mes = String(data.getMonth()+1).padStart(2,"0");
+          const dia = String(data.getDate()).padStart(2, "0");
+          const mes = String(data.getMonth() + 1).padStart(2, "0");
           const ano = data.getFullYear();
           const valor = `${ano}-${mes}-${dia}`;
           const option = document.createElement("option");
@@ -206,6 +195,7 @@
       selectHora.innerHTML = "";
 
       const horariosOcupados = agendamentos[diaSelecionado] || [];
+      let disponivel = false;
 
       horariosFixos.forEach(hora => {
         if (!horariosOcupados.includes(hora)) {
@@ -213,10 +203,11 @@
           option.value = hora;
           option.textContent = hora;
           selectHora.appendChild(option);
+          disponivel = true;
         }
       });
 
-      if (selectHora.options.length === 0) {
+      if (!disponivel) {
         const option = document.createElement("option");
         option.textContent = "Horário indisponível";
         option.disabled = true;
@@ -224,7 +215,7 @@
       }
     }
 
-    function exibirMensagem(texto, sucesso=true) {
+    function exibirMensagem(texto, sucesso = true) {
       mensagemDiv.style.display = "block";
       mensagemDiv.textContent = texto;
       mensagemDiv.className = "message " + (sucesso ? "success" : "error");
@@ -236,6 +227,12 @@
 
       if (!diaSelecionado || !horaSelecionada || horaSelecionada === "Horário indisponível") {
         exibirMensagem("Selecione um dia e horário válido.", false);
+        return;
+      }
+
+      const horariosOcupados = agendamentos[diaSelecionado] || [];
+      if (horariosOcupados.includes(horaSelecionada)) {
+        exibirMensagem("Esse horário já foi reservado. Escolha outro.", false);
         return;
       }
 
