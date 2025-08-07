@@ -1,80 +1,384 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>WhatsApp Redirect</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Agendamento Manicure Salão</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #fff0f6;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0; padding: 0 20px 40px;
+    color: #4a2c37;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 {
+    margin-top: 40px;
+    color: #b83280;
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
+
+  .container {
+    max-width: 460px;
+    background: white;
+    border-radius: 20px;
+    padding: 30px 30px 40px;
+    margin-top: 30px;
+    box-shadow: 0 10px 25px rgba(184, 96, 143, 0.15);
+  }
+
+  label {
+    display: block;
+    margin-top: 20px;
+    font-weight: 600;
+    color: #a73b71;
+    font-size: 0.95rem;
+  }
+
+  input[type="date"],
+  input[type="time"],
+  input[type="text"],
+  input[type="tel"],
+  select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #e7c9d9;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #4a2c37;
+    margin-top: 6px;
+    transition: border-color 0.3s;
+  }
+
+  input[type="date"]:focus,
+  input[type="time"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  select:focus {
+    outline: none;
+    border-color: #d94d89;
+    box-shadow: 0 0 8px rgba(217, 77, 137, 0.4);
+  }
+
+  button {
+    margin-top: 30px;
+    background: linear-gradient(135deg, #d94d89 0%, #b83280 100%);
+    color: white;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border: none;
+    padding: 14px 0;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 8px 15px rgba(217, 77, 137, 0.3);
+    transition: background 0.3s ease;
+  }
+
+  button:hover {
+    background: linear-gradient(135deg, #b83280 0%, #d94d89 100%);
+  }
+
+  ul {
+    margin-top: 15px;
+    padding-left: 18px;
+    color: #7f5871;
+    font-size: 0.9rem;
+  }
+
+  ul li {
+    margin-bottom: 7px;
+  }
+
+  select:disabled,
+  input:disabled {
+    background: #f4e6ef;
+    color: #a48c9e;
+  }
+
+  .agendamento-confirmado {
+    margin-top: 25px;
+    padding: 15px;
+    background: #f8d7da;
+    color: #842029;
+    border-radius: 15px;
+    font-weight: 600;
+    text-align: center;
+    display: none;
+  }
+
+  /* Título para as seções */
+  .section-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #a73b71;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #d94d89;
+    padding-bottom: 6px;
+  }
+
+  /* Responsivo */
+  @media (max-width: 500px) {
     body {
-      background-color: #ffffff; /* Fundo branco */
-      color: #333333; /* Texto escuro */
-      font-family: 'Segoe UI', 'Roboto', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      text-align: center;
+      padding: 0 15px 30px;
     }
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+    .container {
+      padding: 25px 20px 30px;
     }
-    .contador {
-      font-size: 3rem;
-      font-weight: bold;
-      color: #4CAF50; /* Verde suave */
-    }
-    .check {
-      font-size: 4rem;
-      color: #4CAF50;
-      display: none;
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <h1>Parabéns pelo acesso!</h1>
-  <p>Você será direcionado em segundos...</p>
-  <div class="contador" id="contador">3</div>
-  <div class="check" id="check">✔</div>
 
-  <script>
-    // Lista de números do WhatsApp
-    const numeros = [
-      '5573991352960',
-      '5573988240641'
-    ];
+<h1>Salão Manicure</h1>
 
-    // Rotação de números com localStorage
-    let indice = localStorage.getItem('indiceNumero');
-    indice = indice ? parseInt(indice) : 0;
-    const numeroAtual = numeros[indice];
-    const proximoIndice = (indice + 1) % numeros.length;
-    localStorage.setItem('indiceNumero', proximoIndice);
+<div class="container" id="configSection">
+  <div class="section-title">Cadastrar Horários (Manicure)</div>
+  <label for="inputDia">Dia (data):</label>
+  <input type="date" id="inputDia" min="" />
 
-    // Link com número rotativo
-    const link = "https://wa.me/" + numeroAtual;
+  <label for="inputHorario">Horário:</label>
+  <input type="time" id="inputHorario" />
 
-    // Elementos
-    let segundos = 3;
-    const contador = document.getElementById('contador');
-    const check = document.getElementById('check');
+  <button id="btnAdicionarHorario">Adicionar Horário</button>
 
-    // Atualiza o cronômetro a cada segundo
-    const interval = setInterval(() => {
-      segundos--;
-      if (segundos > 0) {
-        contador.textContent = segundos;
-      } else {
-        clearInterval(interval);
-        contador.style.display = 'none';
-        check.style.display = 'block';
-        setTimeout(() => {
-          window.location.href = link;
-        }, 1000);
+  <div style="margin-top: 20px;">
+    <strong>Horários disponíveis:</strong>
+    <ul id="listaHorarios">Nenhum horário cadastrado ainda.</ul>
+  </div>
+</div>
+
+<div class="container" id="agendamentoSection" style="display:none;">
+  <div class="section-title">Agendar Horário (Cliente)</div>
+
+  <label for="selectDiaCliente">Escolha o dia:</label>
+  <select id="selectDiaCliente"></select>
+
+  <label for="selectHorarioCliente">Escolha o horário:</label>
+  <select id="selectHorarioCliente"></select>
+
+  <label for="nomeCliente">Seu nome:</label>
+  <input type="text" id="nomeCliente" placeholder="Ex: Ana" />
+
+  <label for="whatsappCliente">WhatsApp (somente números):</label>
+  <input type="tel" id="whatsappCliente" placeholder="Ex: 73999999999" pattern="[0-9]{10,11}" />
+
+  <button id="btnAgendar">Confirmar Agendamento</button>
+
+  <div class="agendamento-confirmado" id="msgConfirmado"></div>
+</div>
+
+<script>
+  // Ajusta o mínimo do input data para hoje
+  const inputDia = document.getElementById('inputDia');
+  const hoje = new Date().toISOString().split('T')[0];
+  inputDia.min = hoje;
+
+  // Dados
+  const manicureWhats = '5573988152489'; // Número da manicure com DDI
+
+  // Elementos
+  const inputHorario = document.getElementById('inputHorario');
+  const btnAdicionarHorario = document.getElementById('btnAdicionarHorario');
+  const listaHorarios = document.getElementById('listaHorarios');
+
+  const configSection = document.getElementById('configSection');
+  const agendamentoSection = document.getElementById('agendamentoSection');
+
+  const selectDiaCliente = document.getElementById('selectDiaCliente');
+  const selectHorarioCliente = document.getElementById('selectHorarioCliente');
+  const nomeClienteInput = document.getElementById('nomeCliente');
+  const whatsappClienteInput = document.getElementById('whatsappCliente');
+  const btnAgendar = document.getElementById('btnAgendar');
+  const msgConfirmado = document.getElementById('msgConfirmado');
+
+  // LocalStorage helpers
+  function carregarHorarios() {
+    const data = localStorage.getItem('horariosDisponiveis');
+    return data ? JSON.parse(data) : {};
+  }
+  function salvarHorarios(horarios) {
+    localStorage.setItem('horariosDisponiveis', JSON.stringify(horarios));
+  }
+  function carregarAgendamentos() {
+    const data = localStorage.getItem('agendamentos');
+    return data ? JSON.parse(data) : [];
+  }
+  function salvarAgendamentos(ags) {
+    localStorage.setItem('agendamentos', JSON.stringify(ags));
+  }
+
+  // Atualiza lista de horários na tela da manicure
+  function atualizarListaHorarios() {
+    const horarios = carregarHorarios();
+    listaHorarios.innerHTML = '';
+
+    if(Object.keys(horarios).length === 0){
+      listaHorarios.innerHTML = 'Nenhum horário cadastrado ainda.';
+      agendamentoSection.style.display = 'none';
+      return;
+    }
+
+    agendamentoSection.style.display = 'block';
+
+    for(const dia in horarios){
+      const li = document.createElement('li');
+      li.textContent = `${dia} : ${horarios[dia].join(', ')}`;
+      listaHorarios.appendChild(li);
+    }
+
+    atualizarSelectDiasCliente();
+  }
+
+  // Atualiza select de dias para o cliente
+  function atualizarSelectDiasCliente() {
+    const horarios = carregarHorarios();
+    selectDiaCliente.innerHTML = '<option value="">Selecione um dia</option>';
+
+    Object.keys(horarios).sort().forEach(dia => {
+      const option = document.createElement('option');
+      option.value = dia;
+      option.textContent = dia;
+      selectDiaCliente.appendChild(option);
+    });
+
+    selectHorarioCliente.innerHTML = '<option value="">Selecione um horário</option>';
+  }
+
+  // Atualiza select de horários para o cliente, filtrando os já agendados
+  selectDiaCliente.addEventListener('change', () => {
+    const dia = selectDiaCliente.value;
+    const horarios = carregarHorarios();
+    const agendamentos = carregarAgendamentos();
+
+    selectHorarioCliente.innerHTML = '<option value="">Selecione um horário</option>';
+
+    if(!dia || !horarios[dia]) return;
+
+    const horariosAgendados = agendamentos
+      .filter(a => a.data === dia)
+      .map(a => a.horario);
+
+    horarios[dia].forEach(h => {
+      if(!horariosAgendados.includes(h)) {
+        const option = document.createElement('option');
+        option.value = h;
+        option.textContent = h;
+        selectHorarioCliente.appendChild(option);
       }
-    }, 1000);
-  </script>
+    });
+  });
+
+  // Adicionar horário (manicure)
+  btnAdicionarHorario.addEventListener('click', () => {
+    const dia = inputDia.value;
+    const horario = inputHorario.value;
+
+    if(!dia){
+      alert('Selecione um dia válido.');
+      return;
+    }
+    if(!horario){
+      alert('Selecione um horário válido.');
+      return;
+    }
+
+    let horarios = carregarHorarios();
+
+    if(!horarios[dia]) horarios[dia] = [];
+
+    if(horarios[dia].includes(horario)){
+      alert('Esse horário já está cadastrado.');
+      return;
+    }
+
+    horarios[dia].push(horario);
+    horarios[dia].sort();
+    salvarHorarios(horarios);
+
+    inputDia.value = '';
+    inputHorario.value = '';
+    atualizarListaHorarios();
+  });
+
+  // Confirmar agendamento (cliente)
+  btnAgendar.addEventListener('click', () => {
+    const nome = nomeClienteInput.value.trim();
+    const whatsapp = whatsappClienteInput.value.trim();
+    const dia = selectDiaCliente.value;
+    const horario = selectHorarioCliente.value;
+
+    if(!nome){
+      alert('Por favor, digite seu nome.');
+      return;
+    }
+    if(!whatsapp.match(/^\d{10,11}$/)){
+      alert('Digite um WhatsApp válido (apenas números, com DDD).');
+      return;
+    }
+    if(!dia){
+      alert('Escolha um dia.');
+      return;
+    }
+    if(!horario){
+      alert('Escolha um horário.');
+      return;
+    }
+
+    const agendamentos = carregarAgendamentos();
+
+    if(agendamentos.some(a => a.data === dia && a.horario === horario)) {
+      alert('Esse horário já foi agendado, escolha outro.');
+      atualizarListaHorarios();
+      return;
+    }
+
+    // Salva agendamento
+    agendamentos.push({nome, whatsapp, data: dia, horario});
+    salvarAgendamentos(agendamentos);
+
+    // Mensagem WhatsApp para manicure
+    const mensagem =
+      `Novo agendamento!\n` +
+      `Cliente: ${nome}\n` +
+      `WhatsApp: ${whatsapp}\n` +
+      `Data: ${dia}\n` +
+      `Horário: ${horario}`;
+
+    const urlWhats = `https://wa.me/${manicureWhats}?text=${encodeURIComponent(mensagem)}`;
+
+    msgConfirmado.textContent = `Agendado para ${dia} às ${horario}. Redirecionando para WhatsApp...`;
+    msgConfirmado.style.display = 'block';
+
+    // Limpa formulário cliente
+    nomeClienteInput.value = '';
+    whatsappClienteInput.value = '';
+    selectDiaCliente.value = '';
+    selectHorarioCliente.innerHTML = '<option value="">Selecione um horário</option>';
+
+    atualizarListaHorarios();
+
+    // Redireciona para WhatsApp após 1.5 segundos
+    setTimeout(() => {
+      window.location.href = urlWhats;
+    }, 1500);
+  });
+
+  // Inicializa lista
+  atualizarListaHorarios();
+</script>
+
 </body>
 </html>
