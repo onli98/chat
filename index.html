@@ -1,85 +1,74 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Lais Borges - Salão de Unha</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: 'Quicksand', sans-serif;
+      margin: 0; font-family: 'Quicksand', sans-serif;
       background: linear-gradient(to bottom right, #fff0f5, #fce4ff);
       color: #4a4a4a;
     }
-
     header {
-      text-align: center;
-      padding: 40px 20px 20px;
+      text-align: center; padding: 40px 20px 20px;
       position: relative;
     }
-
     .foto-wrapper {
-      position: relative;
-      display: inline-block;
+      position: relative; display: inline-block;
     }
-
     .foto-wrapper::before {
       content: '';
       position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 150px;
-      height: 150px;
+      top: 50%; left: 50%;
+      width: 150px; height: 150px;
       background: rgba(233, 30, 99, 0.3);
       border-radius: 50%;
       transform: translate(-50%, -50%);
       animation: pulse 2s infinite;
       z-index: 0;
     }
-
     @keyframes pulse {
-      0% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 0.6;
-      }
-      70% {
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 0;
-      }
-      100% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 0;
-      }
+      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+      70% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
     }
-
     .foto-wrapper img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 4px solid #e91e63;
+      width: 120px; height: 120px;
+      border-radius: 50%; border: 4px solid #e91e63;
       object-fit: cover;
       box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-      position: relative;
-      z-index: 1;
+      position: relative; z-index: 1;
     }
-
     header h1 {
-      margin: 20px 0 5px;
-      font-size: 26px;
+      margin: 20px 0 5px; font-size: 26px;
       color: #c2185b;
     }
-
     header p {
-      font-size: 16px;
-      color: #a0529e;
+      font-size: 16px; color: #a0529e;
       margin: 0;
     }
-
+    .subtitulo {
+      font-size: 18px;
+      color: #c2185b;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+    .agendamento-animado {
+      font-size: 28px;
+      font-weight: 700;
+      color: #e91e63;
+      margin-top: 15px;
+      animation: bounce 2s infinite;
+      user-select: none;
+      text-shadow: 0 2px 6px rgba(233, 30, 99, 0.5);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
     .container {
       max-width: 600px;
       margin: 30px auto;
@@ -88,7 +77,6 @@
       padding: 35px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.07);
     }
-
     label {
       font-weight: 600;
       margin-top: 15px;
@@ -96,8 +84,7 @@
       margin-bottom: 6px;
       color: #a0529e;
     }
-
-    select, input {
+    select {
       width: 100%;
       padding: 12px;
       border-radius: 10px;
@@ -107,13 +94,11 @@
       background-color: #fdf6ff;
       transition: all 0.3s ease;
     }
-
-    select:focus, input:focus {
+    select:focus {
       border-color: #c94fcf;
       outline: none;
       background-color: #fffafd;
     }
-
     button {
       width: 100%;
       padding: 14px;
@@ -126,11 +111,9 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
-
     button:hover {
       background-color: #c2185b;
     }
-
     .message {
       text-align: center;
       font-weight: bold;
@@ -138,28 +121,23 @@
       padding: 10px;
       border-radius: 8px;
     }
-
     .success {
       background-color: #e9ffe9;
       color: #2e7d32;
     }
-
     .error {
       background-color: #ffe6e6;
       color: #c62828;
     }
-
     @media (max-width: 600px) {
       .container {
         margin: 20px;
         padding: 25px;
       }
-
       .foto-wrapper::before {
         width: 120px;
         height: 120px;
       }
-
       .foto-wrapper img {
         width: 100px;
         height: 100px;
@@ -168,63 +146,60 @@
   </style>
 </head>
 <body>
-
-  <!-- Cabeçalho com foto animada -->
   <header>
     <div class="foto-wrapper">
-      <img src="https://i.postimg.cc/rwMKZyTs/Imagem-do-Whats-App-de-2025-08-07-s-11-00-46-21243bc9.jpg" alt="Lais Borges">
+      <img src="https://i.postimg.cc/rwMKZyTs/Imagem-do-Whats-App-de-2025-08-07-s-11-00-46-21243bc9.jpg" alt="Lais Borges" />
     </div>
     <h1>Lais Borges</h1>
-    <p>Salão de Unha • Beleza & Cuidado Feminino</p>
+    <p>Unha • Beleza & Cuidado Feminino</p>
+    <h2 class="subtitulo">Agendamento Dinâmico</h2>
+    <h2 class="agendamento-animado">Agendamento</h2>
   </header>
 
   <div class="container">
-    <label for="nome">Seu nome:</label>
-    <input type="text" id="nome" placeholder="Ex: Mariana">
-
     <label for="dia">Escolha o dia:</label>
-    <select id="dia" onchange="atualizarHorarios()">
-      <!-- Datas reais dos próximos dias -->
-    </select>
+    <select id="dia" onchange="atualizarHorarios()"></select>
 
     <label for="hora">Escolha o horário:</label>
-    <select id="hora">
-      <!-- Horários dinâmicos -->
-    </select>
+    <select id="hora"></select>
 
     <button onclick="agendar()">Confirmar Agendamento</button>
+
     <div id="mensagem" class="message" style="display:none;"></div>
   </div>
 
   <script>
     const horariosFixos = ["07:00", "09:00", "11:00", "14:00", "16:00", "18:00", "20:00"];
-    const selectHora = document.getElementById("hora");
+    const diasSemana = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+    const numeroWhatsApp = "73991041270";
+
     const selectDia = document.getElementById("dia");
-    const nomeInput = document.getElementById("nome");
+    const selectHora = document.getElementById("hora");
     const mensagemDiv = document.getElementById("mensagem");
 
     let agendamentos = JSON.parse(localStorage.getItem("agendamentos")) || {};
 
     function gerarProximosDiasUteis() {
-      const dias = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
       const hoje = new Date();
       selectDia.innerHTML = "";
-
-      for (let i = 0; i < 14; i++) {
+      let count = 0;
+      let i = 0;
+      while(count < 14) {
         const data = new Date();
         data.setDate(hoje.getDate() + i);
-        const diaSemana = data.getDay();
-        const diaNome = dias[diaSemana];
-        if (["Terça", "Quarta", "Quinta", "Sexta", "Sábado"].includes(diaNome)) {
-          const dia = String(data.getDate()).padStart(2, "0");
-          const mes = String(data.getMonth() + 1).padStart(2, "0");
+        const diaSemana = diasSemana[data.getDay()];
+        if (["Terça", "Quarta", "Quinta", "Sexta", "Sábado"].includes(diaSemana)) {
+          const dia = String(data.getDate()).padStart(2,"0");
+          const mes = String(data.getMonth()+1).padStart(2,"0");
           const ano = data.getFullYear();
           const valor = `${ano}-${mes}-${dia}`;
           const option = document.createElement("option");
           option.value = valor;
-          option.textContent = `${diaNome} - ${dia}/${mes}/${ano}`;
+          option.textContent = `${diaSemana} - ${dia}/${mes}/${ano}`;
           selectDia.appendChild(option);
+          count++;
         }
+        i++;
       }
     }
 
@@ -232,10 +207,10 @@
       const diaSelecionado = selectDia.value;
       selectHora.innerHTML = "";
 
-      const horariosDoDia = agendamentos[diaSelecionado] || [];
+      const horariosOcupados = agendamentos[diaSelecionado] || [];
 
       horariosFixos.forEach(hora => {
-        if (!horariosDoDia.includes(hora)) {
+        if (!horariosOcupados.includes(hora)) {
           const option = document.createElement("option");
           option.value = hora;
           option.textContent = hora;
@@ -245,12 +220,42 @@
 
       if (selectHora.options.length === 0) {
         const option = document.createElement("option");
-        option.textContent = "Nenhum horário disponível";
+        option.textContent = "Horário indisponível";
         option.disabled = true;
         selectHora.appendChild(option);
       }
     }
 
+    function exibirMensagem(texto, sucesso=true) {
+      mensagemDiv.style.display = "block";
+      mensagemDiv.textContent = texto;
+      mensagemDiv.className = "message " + (sucesso ? "success" : "error");
+    }
+
     function agendar() {
-      const nome = nomeInput.value.trim();
-      const
+      const diaSelecionado = selectDia.value;
+      const horaSelecionada = selectHora.value;
+
+      if (!diaSelecionado || !horaSelecionada || horaSelecionada === "Horário indisponível") {
+        exibirMensagem("Selecione um dia e horário válido.", false);
+        return;
+      }
+
+      if (!agendamentos[diaSelecionado]) {
+        agendamentos[diaSelecionado] = [];
+      }
+      agendamentos[diaSelecionado].push(horaSelecionada);
+      localStorage.setItem("agendamentos", JSON.stringify(agendamentos));
+
+      const [ano, mes, dia] = diaSelecionado.split("-");
+      const dataFormatada = `${dia}/${mes}`;
+      const mensagem = `Lais, confere esse agendamento pra mim?\nData: ${dataFormatada}\nHorário: ${horaSelecionada}`;
+      const link = `https://wa.me/55${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+      window.location.href = link;
+    }
+
+    gerarProximosDiasUteis();
+    atualizarHorarios();
+  </script>
+</body>
+</html>
