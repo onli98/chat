@@ -169,7 +169,7 @@
 </head>
 <body>
 
-  <!-- Header com foto animada e nome -->
+  <!-- Cabeçalho com foto animada -->
   <header>
     <div class="foto-wrapper">
       <img src="https://i.postimg.cc/rwMKZyTs/Imagem-do-Whats-App-de-2025-08-07-s-11-00-46-21243bc9.jpg" alt="Lais Borges">
@@ -184,16 +184,12 @@
 
     <label for="dia">Escolha o dia:</label>
     <select id="dia" onchange="atualizarHorarios()">
-      <option value="Terça">Terça-feira</option>
-      <option value="Quarta">Quarta-feira</option>
-      <option value="Quinta">Quinta-feira</option>
-      <option value="Sexta">Sexta-feira</option>
-      <option value="Sábado">Sábado</option>
+      <!-- Datas reais dos próximos dias -->
     </select>
 
     <label for="hora">Escolha o horário:</label>
     <select id="hora">
-      <!-- Horários serão carregados aqui -->
+      <!-- Horários dinâmicos -->
     </select>
 
     <button onclick="agendar()">Confirmar Agendamento</button>
@@ -209,12 +205,34 @@
 
     let agendamentos = JSON.parse(localStorage.getItem("agendamentos")) || {};
 
+    function gerarProximosDiasUteis() {
+      const dias = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+      const hoje = new Date();
+      selectDia.innerHTML = "";
+
+      for (let i = 0; i < 14; i++) {
+        const data = new Date();
+        data.setDate(hoje.getDate() + i);
+        const diaSemana = data.getDay();
+        const diaNome = dias[diaSemana];
+        if (["Terça", "Quarta", "Quinta", "Sexta", "Sábado"].includes(diaNome)) {
+          const dia = String(data.getDate()).padStart(2, "0");
+          const mes = String(data.getMonth() + 1).padStart(2, "0");
+          const ano = data.getFullYear();
+          const valor = `${ano}-${mes}-${dia}`;
+          const option = document.createElement("option");
+          option.value = valor;
+          option.textContent = `${diaNome} - ${dia}/${mes}/${ano}`;
+          selectDia.appendChild(option);
+        }
+      }
+    }
+
     function atualizarHorarios() {
       const diaSelecionado = selectDia.value;
       selectHora.innerHTML = "";
 
       const horariosDoDia = agendamentos[diaSelecionado] || [];
-      let horariosDisponiveis = 0;
 
       horariosFixos.forEach(hora => {
         if (!horariosDoDia.includes(hora)) {
@@ -222,11 +240,10 @@
           option.value = hora;
           option.textContent = hora;
           selectHora.appendChild(option);
-          horariosDisponiveis++;
         }
       });
 
-      if (horariosDisponiveis === 0) {
+      if (selectHora.options.length === 0) {
         const option = document.createElement("option");
         option.textContent = "Nenhum horário disponível";
         option.disabled = true;
@@ -234,28 +251,6 @@
       }
     }
 
-    atualizarHorarios();
-
     function agendar() {
       const nome = nomeInput.value.trim();
-      const dia = selectDia.value;
-      const hora = selectHora.value;
-
-      if (!nome) {
-        exibirMensagem("Por favor, insira seu nome.", "error");
-        return;
-      }
-
-      if (!agendamentos[dia]) {
-        agendamentos[dia] = [];
-      }
-
-      if (agendamentos[dia].includes(hora)) {
-        exibirMensagem("Horário indisponível!", "error");
-        return;
-      }
-
-      agendamentos[dia].push(hora);
-      localStorage.setItem("agendamentos", JSON.stringify(agendamentos));
-
-      exibirMensagem(`✨ Agendamento
+      const
